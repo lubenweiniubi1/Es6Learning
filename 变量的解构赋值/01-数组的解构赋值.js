@@ -146,6 +146,11 @@ if (0) {
   let [x5 = 1, y5 = x5] = [5]
   console.log(x5, y5) //5 5
 
-  false &&
-    (let[((x = y), (y = 1))] = []) // ReferenceError是因为x用到默认值y时，y还没有声明。
+  false && (let[((x = y), (y = 1))] = []) // ReferenceError是因为x用到默认值y时，y还没有声明。
+}
+
+if (1) {
+  //类似数组的对象都有一个length属性，因此还可以对这个属性解构赋值。这里是大括号
+  let { length: c } = [1, 2, 2, 3, 3, 4, 5, 6]
+  console.log(c)//8
 }
