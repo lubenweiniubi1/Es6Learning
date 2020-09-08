@@ -58,7 +58,7 @@ if (0) {
 }
 
 //字符串
-if (1) {
+if (0) {
   //扩展运算符还可以将字符串转为真正的数组。
   console.log([..."hello"]) //[ 'h', 'e', 'l', 'l', 'o' ]
 
@@ -83,7 +83,7 @@ if (1) {
 }
 
 //（5）实现了Iterator接口的对象
-if (1) {
+if (0) {
   //任何Iterator接口的对象，都可以用扩展运算符转为真正的数组。
   /*
   var nodeList = document.querySelectorAll('div');
@@ -105,5 +105,30 @@ if (1) {
   //扩展运算符就会报错。这时，可以改为使用Array.from方法将arrayLike转为真正的数组。
 }
 
+//（6）Map和Set结构，Generator函数
 if (1) {
+  //扩展运算符内部调用的是数据结构的Iterator接口，因此只要具有Iterator接口的对象，都可以使用扩展运算符，比如Map结构。
+  let map = new Map([
+    [1, "one"],
+    [22, "two"],
+    [3, "three"],
+  ])
+  console.log([...map.keys()]) //[ 1, 22, 3 ]
+
+  //Generator函数运行后，返回一个遍历器对象，因此也可以使用扩展运算符。
+  const go = function* () {
+    yield 1
+    yield 2
+    yield 3
+  }
+  console.log([...go()]) //[ 1, 2, 3 ]
+
+  //上面代码中，变量go是一个Generator函数，执行后返回的是一个遍历器对象，
+  //对这个遍历器对象执行扩展运算符，就会将内部遍历得到的值，转为一个数组。
+
+  //如果对没有iterator接口的对象，使用扩展运算符，将会报错。
+  if (0) {
+    const  obj = { a: 1, b: 2 }
+    let arr = [...obj] // TypeError: Cannot spread non-iterable object
+  }
 }
