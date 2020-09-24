@@ -75,5 +75,40 @@ console.log([1, 2].concat(a1).concat(a2))
 // [1, 2, 3, 4, [5, 6]]
 //上面代码中，类A1是可展开的，类A2是不可展开的，所以使用concat时有不一样的结果。
 
-
 //其他的不想看了，遇到了再查吧
+
+/**
+ * Symbol.iterator
+对象的Symbol.iterator属性，指向该对象的默认遍历器方法。
+*/
+
+var myIterable = {}
+myIterable[Symbol.iterator] = function* () {
+  yield 1
+  yield 2
+  yield 3
+}
+
+;[...myIterable] // [1, 2, 3]
+//对象进行for...of循环时，会调用Symbol.iterator方法，返回该对象的默认遍历器，详细介绍参见《Iterator和for...of循环》一章。
+
+class Collection {
+  *[Symbol.iterator]() {
+    console.log("撒比")
+    let i = 0
+    while (this[i] !== undefined) {
+      yield this[i]
+      ++i
+    }
+  }
+}
+
+let myCollection = new Collection()
+myCollection[0] = 1
+myCollection[1] = 2
+
+for (let value of myCollection) {
+  console.log(value)
+}
+// 1
+// 2
