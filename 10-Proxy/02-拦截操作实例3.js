@@ -81,4 +81,39 @@ var p = new Proxy(function () {}, {
 
 0 && new p() // 报错
 
+//deleteProperty()
+//deleteProperty方法用于拦截delete操作，如果这个方法抛出错误或者返回false，当前属性就无法被delete命令删除。
+var handler = {
+  deleteProperty(target, key) {
+    invariant(key, "delete")
+    return true
+  },
+}
+function invariant(key, action) {
+  if (key[0] === "_") {
+    throw new Error(`Invalid attempt to ${action} private "${key}" property`)
+  }
+}
+
+var target = { _prop: "foo", zss: 20 }
+var proxy = new Proxy(target, handler)
+delete proxy.zss
+console.log(proxy)
+// Error: Invalid attempt to delete private "_prop" property
+//上面代码中，deleteProperty方法拦截了delete操作符，删除第一个字符为下划线的属性会报错。
+//注意，目标对象自身的不可配置（configurable）的属性，不能被deleteProperty方法删除，否则报错。
+
 //defineProperty()
+//defineProperty方法拦截了Object.defineProperty操作。
+var handler = {
+  defineProperty(target, key, descriptor) {
+    return true
+  },
+}
+var target = {}
+var proxy = new Proxy(target, handler)
+proxy.foo = "bar"
+console.log(proxy)
+// TypeError: proxy defineProperty handler returned false for property '"foo"'
+//上面代码中，defineProperty方法返回false，导致添加新属性会抛出错误。
+//注意，如果目标对象不可扩展（extensible），则defineProperty不能增加目标对象上不存在的属性，否则会报错。另外，如果目标对象的某个属性不可写（writable）或不可配置（configurable），则defineProperty方法不得改变这两个设置。
