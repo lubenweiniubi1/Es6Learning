@@ -155,6 +155,7 @@ if (0) {
 
 //现在，再看setImmediate。
 if (0) {
+  
   setImmediate(function A() {
     console.log(1)
     setImmediate(function B() {
