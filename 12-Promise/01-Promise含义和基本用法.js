@@ -55,7 +55,7 @@ promise.then(
 //then方法可以接受两个回调函数作为参数。第一个回调函数是Promise对象的状态变为Resolved时调用，第二个回调函数是Promise对象的状态变为Reject时调用。其中，第二个函数是可选的，不一定要提供。这两个函数都接受Promise对象传出的值作为参数。
 
 //下面是一个Promise对象的简单例子。
-if (1) {
+if (0) {
   function timeout(ms) {
     return new Promise((resolve, reject) => {
       setTimeout(resolve, ms, "done")
@@ -64,4 +64,27 @@ if (1) {
   timeout(100).then((value) => {
     console.log(value)
   })
+}
+//上面代码中，timeout方法返回一个Promise实例，表示一段时间以后才会发生的结果。过了指定的时间（ms参数）以后，Promise实例的状态变为Resolved，就会触发then方法绑定的回调函数。
+
+//Promise新建后就会立即执行
+if (1) {
+  let promise = new Promise(function (resolve, reject) {
+    console.log("Promise")
+    resolve()
+  })
+  promise.then(function () {
+    console.log("resolved")
+  })
+  let promise2 = new Promise(function (resolve, reject) {
+    console.log("Promise2")
+    resolve()
+  })
+  promise2.then(function () {
+    console.log("resolved2")
+  })
+
+  console.log("Hi")
+
+  //输出 Promise Hi resolved
 }
