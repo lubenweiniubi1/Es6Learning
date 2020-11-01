@@ -5,14 +5,16 @@ if (0) {
   function* f() {
     for (let i = 0; true; i++) {
       let reset = yield i
+      console.log(reset)
+
       if (reset) {
         i = -1
       }
     }
   }
   const g = f()
-  console.log(g.next())
-  console.log(g.next())
+  console.log(g.next()) //这一句执行的时候 reset还被打印,这里带参数也无效
+  console.log(g.next(1)) //这里有效,将1传递到上次停留的地方做返回值
   console.log(g.next())
   console.log(g.next())
   console.log(g.next(true))
@@ -34,13 +36,13 @@ if (0) {
   }
   const a = foo(5)
   console.log(a.next()) //6
-  console.log(a.next())
-  console.log(a.next())
+  console.log(a.next()) //NaN
+  console.log(a.next()) //NaN
 
   const b = foo(5)
-  console.log(b.next())
-  console.log(b.next(12))
-  console.log(b.next(16))
+  console.log(b.next()) //6
+  console.log(b.next(12)) //x
+  console.log(b.next(16)) //x
 }
 /**
  * 上面代码中，第二次运行next方法的时候不带参数，导致y的值等于2 * undefined（即NaN），除以3以后还是NaN，
