@@ -3,7 +3,7 @@ Thunk 函数的自动流程管理
 
 Thunk 函数真正的威力，在于可以自动执行 Generator 函数。下面就是一个基于 Thunk 函数的 Generator 执行器。
 */
-function run(fn) {
+function run(fun) {
   const gen = fun()
 
   function next(err, data) {

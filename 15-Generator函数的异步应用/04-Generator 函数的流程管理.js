@@ -2,9 +2,8 @@ const fs = require('fs')
 const thunkify = require('thunkify')
 /**
 你可能会问， Thunk 函数有什么用？回答是以前确实没什么用，但是 ES6 有了 Generator 函数，
-Thunk 函数现在可以用于 Generator 函数的自动流程管理。
 
-Generator 函数可以自动执行。
+Thunk 函数现在可以用于 Generator 函数的自动流程管理。-------Generator 函数可以自动执行。
 */
 if (0) {
   function* gen() {
