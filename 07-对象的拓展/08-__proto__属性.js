@@ -49,7 +49,7 @@ me.printIntroduction();
 //正确写法
 
 //在实现上，__proto__调用的是Object.prototype.__proto__，具体实现如下。
-Object.defineProperty(Object.prototype, "__proto__", {
+Object.defineProperty(Object.prototype, '__proto__', {
   //这里是存取描述符
   get() {
     let _thisObj = Object(this)
