@@ -6,39 +6,28 @@ Class作为构造函数的语法糖，同时有prototype属性和__proto__属性
 
 （2）子类prototype属性的__proto__属性，表示方法的继承，总是指向父类的prototype属性。
  */
-if (0) {
-  const obj = {
-    method: function () {},
-  }
-  const someOtherObj = {}
-  obj.__proto__ = someOtherObj
-  console.log(obj.prototype) //undefined 对象没有prototype这个属性
-  console.log(obj.__proto__) //{}
 
-  const a = function () {}
-  console.log(a.__proto__) //[Function (anonymous)]
-  console.log(a.prototype) //a {}
-}
-if (0) {
+if (1) {
   class A {}
   class B extends A {}
+
   console.log(B) //[Function: B]
-  console.log(A) //[Function: A]
+  console.log(B === B.prototype.constructor) //true
 
   console.log(B.prototype) //B {}
-  console.log(A.prototype) //A {}
-
-  console.log(B.prototype.__proto__) //A {}
+  console.log(B.prototype.__proto__) //A {}  继承就是Animal.prototype = new Object()
+  console.log(B.prototype.__proto__ === A.prototype) //true
 
   console.log(B.__proto__) //[Function: A]
-  console.log(A.__proto__) //[Function (anonymous)]
-
-  console.log(B.prototype === B) //false
-
   console.log(B.__proto__ === A) //true
 
-  console.log(B.prototype.__proto__ === A.prototype) //true
-  console.log(B.prototype.__proto__ === A) //false
+  console.log(A.prototype) //A {}
+  console.log(A) //[Function: A]
+
+  console.log(A.__proto__) //[Function (anonymous)] Function.prototype
+  console.log(A.__proto__ === Function.prototype) //true
+
+  console.log(B.prototype === B) //false
 }
 // 上面代码中，子类B的__proto__属性指向父类A，子类B的prototype属性的__proto__属性指向父类A的prototype属性。
 
