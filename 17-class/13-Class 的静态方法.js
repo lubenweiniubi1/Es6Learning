@@ -45,3 +45,6 @@ if (1) {
   console.log(Bar.classMethod()) // hello, too
 
 }
+
+
+ 
