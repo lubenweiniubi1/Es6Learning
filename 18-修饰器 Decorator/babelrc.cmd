@@ -1,0 +1,1 @@
+npx babel 02-decorateMethod.js --out-file  02-babeled.js
