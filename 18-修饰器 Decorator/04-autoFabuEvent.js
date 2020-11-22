@@ -9,8 +9,6 @@ function publish(topic, channelName) {
       let value = fn.apply(this, arguments)
       console.log(channelName)
       const channel = postal.channel(channelName || target.channel || "/")
-      console.log(topic)
-      console.log(value)
 
       channel.publish(topic, value)
     }
@@ -27,9 +25,6 @@ class FooComponent {
     }
   }
 }
-let foo = new FooComponent()
-
-foo.someMethod() // 在"component"频道发布"foo.some.message"事件，附带的数据是{ my: "data" }
 
 var channel = postal.channel("component")
 
@@ -42,7 +37,7 @@ postal.subscribe({
   channel: "component",
   topic: "name.change",
   callback: () => {
-    console.log("喜喜")
+    console.log("event name.change")
   },
 })
 
@@ -56,3 +51,7 @@ postal.subscribe({
 
 // And someone publishes a name change:
 channel.publish("name.change", { name: "Dr. Who" })
+
+let foo = new FooComponent()
+
+foo.someMethod() // 在"component"频道发布"foo.some.message"事件，附带的数据是{ my: "data" }  ，订阅必须再发布之前

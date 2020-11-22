@@ -24,8 +24,6 @@ function publish(topic, channelName) {
 
       var channel = _postal["default"].channel(channelName || target.channel || "/");
 
-      console.log(topic);
-      console.log(value);
       channel.publish(topic, value);
     };
   };
@@ -49,8 +47,6 @@ var FooComponent = (_dec = publish("messageEvent", "component"), (_class = /*#__
 
   return FooComponent;
 }(), (_applyDecoratedDescriptor(_class.prototype, "someMethod", [_dec], Object.getOwnPropertyDescriptor(_class.prototype, "someMethod"), _class.prototype)), _class));
-var foo = new FooComponent();
-foo.someMethod(); // 在"component"频道发布"foo.some.message"事件，附带的数据是{ my: "data" }
 
 var channel = _postal["default"].channel("component"); // subscribe to 'name.change' topics
 
@@ -63,7 +59,7 @@ _postal["default"].subscribe({
   channel: "component",
   topic: "name.change",
   callback: function callback() {
-    console.log("喜喜");
+    console.log("event name.change");
   }
 });
 
@@ -79,3 +75,5 @@ _postal["default"].subscribe({
 channel.publish("name.change", {
   name: "Dr. Who"
 });
+var foo = new FooComponent();
+foo.someMethod(); // 在"component"频道发布"foo.some.message"事件，附带的数据是{ my: "data" }  ，订阅必须再发布之前
