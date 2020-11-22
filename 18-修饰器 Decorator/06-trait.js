@@ -1,6 +1,6 @@
 // Trait也是一种修饰器，效果与Mixin类似，但是提供更多功能，比如防止同名方法的冲突、排除混入某些方法、为混入的方法起别名等等。
 // 下面采用traits-decorator这个第三方模块作为例子。这个模块提供的traits修饰器，不仅可以接受对象，还可以接受ES6类作为参数。
-import { traits ,excludes ,alias} from "traits-decorator"
+import { traits, excludes, alias } from "traits-decorator"
 if (0) {
   class TFoo {
     foo() {
@@ -66,7 +66,7 @@ if (0) {
     },
   }
 
-  @traits(TFoo, TBar::excludes("foo"))
+  //   @traits(TFoo, TBar::excludes("foo"))
   class MyClass {}
 
   let obj = new MyClass()
@@ -77,34 +77,40 @@ if (0) {
 
 // 另一种方法是为TBar的foo方法起一个别名。
 
-import { traits, alias } from 'traits-decorator';
+import { traits, alias } from "traits-decorator"
 
 class TFoo {
-  foo() { console.log('foo') }
+  foo() {
+    console.log("foo")
+  }
 }
 
 const TBar = {
-  bar() { console.log('bar') },
-  foo() { console.log('foo') }
-};
+  bar() {
+    console.log("bar")
+  },
+  foo() {
+    console.log("foo")
+  },
+}
 
-@traits(TFoo, TBar::alias({foo: 'aliasFoo'}))
-class MyClass { }
+// @traits(TFoo, TBar::alias({foo: 'aliasFoo'}))
+class MyClass {}
 
-let obj = new MyClass();
+let obj = new MyClass()
 obj.foo() // foo
 obj.aliasFoo() // foo
 obj.bar() // bar
 // 上面代码为TBar的foo方法起了别名aliasFoo，于是MyClass也可以混入TBar的foo方法了。
 
 // alias和excludes方法，可以结合起来使用。
-if(0)
-@traits(TExample::excludes('foo','bar')::alias({baz:'exampleBaz'}))
-class MyClass {}
+if (0) {
+  // @traits(TExample::excludes('foo','bar')::alias({baz:'exampleBaz'}))
+  class MyClass {}
 }
 // 上面代码排除了TExample的foo方法和bar方法，为baz方法起了别名exampleBaz。
 
 // as方法则为上面的代码提供了另一种写法。
 
-@traits(TExample::as({excludes:['foo', 'bar'], alias: {baz: 'exampleBaz'}}))
+// @traits(TExample::as({excludes:['foo', 'bar'], alias: {baz: 'exampleBaz'}}))
 class MyClass {}
