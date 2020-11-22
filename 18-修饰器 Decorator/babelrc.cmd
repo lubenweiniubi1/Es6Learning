@@ -1,1 +1,1 @@
-npx babel 02-decorateMethod.js --out-file  02-babeled.js
+npx babel 04-autoFabuEvent.js --out-file  04-babeled.js

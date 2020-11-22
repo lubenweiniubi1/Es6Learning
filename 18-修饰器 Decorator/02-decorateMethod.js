@@ -82,7 +82,7 @@ if (0) {
 //从上面代码中，我们一眼就能看出，Person类是可测试的，而name方法是只读和不可枚举的。
 
 //如果同一个方法有多个修饰器，会像剥洋葱一样，先从外到内进入，然后由内向外执行。
-if (1) {
+if (0) {
   function dec(id) {
     console.log("evaluated", id)
     return (target, property, descriptor) => console.log("executed", id)
@@ -100,3 +100,52 @@ if (1) {
 }
 //上面代码中，外层修饰器@dec(1)先进入，但是内层修饰器@dec(2)先执行。
 //除了注释，修饰器还能用来类型检查。所以，对于类来说，这项功能相当有用。从长期来看，它将是JavaScript代码静态分析的重要工具。
+
+
+//为什么修饰器不能用于函数？
+//修饰器只能用于类和类的方法，不能用于函数，因为存在函数提升。
+if(0){
+  var counter = 0;
+
+  var add = function () {
+    counter++;
+  };
+  
+  @add
+  function foo() {
+  }
+}
+//上面的代码，意图是执行后counter等于1，但是实际上结果是counter等于0。
+//因为函数提升，使得实际执行的代码是下面这样。
+if(0){
+@add
+function foo() {
+}
+
+var counter;
+var add;
+
+counter = 0;
+
+add = function () {
+  counter++;
+};
+}
+
+//下面是另一个例子。
+
+var readOnly = require("some-decorator");
+
+@readOnly
+function foo() {
+}
+// 上面代码也有问题，因为实际执行是下面这样。
+
+var readOnly;
+
+@readOnly
+function foo() {
+}
+
+readOnly = require("some-decorator");
+// 总之，由于存在函数提升，使得修饰器不能用于函数。类是不会提升的，所以就没有这方面的问题。
