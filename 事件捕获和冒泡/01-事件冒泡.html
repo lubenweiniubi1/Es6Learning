@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>捕获和冒泡</title>
+</head>
+
+<body onclick="bodyClick()">
+    <div onclick="divClick()">
+        <button onclick="btn()">
+            <p onclick="p()">点击冒泡</p>
+        </button>
+    </div>
+</body>
+<script>
+    function p() {
+        console.log('p标签被点击')
+    }
+    function btn() {
+        console.log("button被点击")
+    }
+    function divClick(event) {
+        console.log('div被点击');
+    }
+    function bodyClick() {
+        console.log('body被点击')
+    }
+    //如上面我们所说的，它会从一个最具体的的元素接收，然后逐级向上传播， p=>button=>div=>body..........事件冒泡可以形象地比喻为把一颗石头投入水中，泡泡会一直从水底冒出水面。
+</script>
+
+</html>

@@ -1,5 +1,11 @@
 {
   "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
     "experimentalDecorators": true
-  }
+  },
+  "files": [
+    "app.js",
+    "typings/node/dode.d.ts"
+  ]
 }

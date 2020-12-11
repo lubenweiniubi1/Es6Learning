@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button onclick="setItem()">点击存储</button>
+    <p id="item"></p>
+
+</body>
+<script>
+    function setItem() {
+        const p = document.getElementById('item')
+        console.log('hahahah ')
+        localStorage.setItem('username', 'hahahahahahah')
+
+
+        p.innerText = localStorage.getItem('username')
+        localStorage.removeItem('username')
+        console.log(localStorage.getItem('username'))
+
+    }
+</script>
+
+</html>
